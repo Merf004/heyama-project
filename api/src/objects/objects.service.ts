@@ -42,7 +42,8 @@ export class ObjectsService {
 
     await upload.done();
 
-    return `${process.env.S3_ENDPOINT}/${process.env.S3_BUCKET_NAME}/${key}`;
+    const projectRef = process.env.S3_ENDPOINT!.split('.')[0].replace('https://', '');
+    return `https://${projectRef}.supabase.co/storage/v1/object/public/${process.env.S3_BUCKET_NAME}/${key}`;
   }
 
   async create(title: string, description: string, file: Express.Multer.File) {
